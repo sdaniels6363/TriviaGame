@@ -2,6 +2,7 @@
 // Global Variables
 var timerExpired = false;
 var allQuestionsAnswered = false;
+var answerSelected = false;
 
 var triviaQuestions = [
   // array to hold all of the questions
@@ -29,9 +30,20 @@ function selectQuestion(array) {
   // set timer in script
   counter = 60;
   // set timer on webpage
-  $("#timer-box").html("<h3>Time Remaining:&nbsp;"+counter+"</h3>") 
+  $("#timer-box").html("<h3>Time Remaining:&nbsp;" + counter + "</h3>")
 
   return question.correctAnswer;
+}
+
+function countdownTimer(count){
+  count--;
+  if (count <= 0) {
+    clearInterval(self);
+    $("#timer-box").html("<h3>Time is up!</h3>")
+    timerExpired = true;
+  } else {
+    $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
+  }
 }
 
 
@@ -48,7 +60,7 @@ $(document).ready(function () {
       $("#timer-box").html("<h3>Time is up!</h3>")
       timerExpired = true;
     } else {
-      $("#timer-box").html("<h3>Time Remaining: "+counter+"</h3>");
+      $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
     }
   }, 1000);
 
@@ -56,16 +68,38 @@ $(document).ready(function () {
 
 
   $(".answers").on("click", function () {
-    if (timerExpired) {
-      alert("Time is up, cannot select an answer.")
+    if (answerSelected) {
+      // prevents the user from changing the answer.
+      console.log("Answer has already been selected.") 
     } else {
-      var selectedAnswer = this.id;
-      if (currentQuestionAnswer === selectedAnswer) {
-        alert("You selected the correct answer!")
+
+      if (timerExpired) {
+        alert("Time is up, cannot select an answer.")
       } else {
-        alert("You selected the incorrect answer.")
+        var selectedAnswer = this.id;
+        var selectedAnswerID = "#" + selectedAnswer;
+        answerSelected = true;
+        clearInterval(timerCountdown); // stop the countdown timer
+
+        if (currentQuestionAnswer === selectedAnswer) {
+          // if the user selects the correct answer do the following
+          $(selectedAnswerID).addClass("correct-answer");
+          countdownTimer(5);
+
+
+        } else {
+          // if the user is incorrect do the following.
+          var questionID = "#" + currentQuestionAnswer;
+          $(questionID).addClass("correct-answer");
+          $(selectedAnswerID).addClass("incorrect-answer");
+          countdownTimer(5);
+
+        }
+        // regardless of whether the answer is right or wrong, prep for next question
       }
+
     }
+
   });
 
 

@@ -40,13 +40,16 @@ footer{
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  background-color: aliceblue;
   height: 100px;
   width: 100%;
 }
 
+.answers:hover{
+  background-color: #008000;
+}
+
 /* ids */
-#timer-box{
+#timer-msg{
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -2,7 +2,6 @@
 // Global Variables
 var timerExpired = false;
 var allQuestionsAnswered = false;
-var counter = 60; //set for sixty seconds
 
 var triviaQuestions = [
   // array to hold all of the questions
@@ -27,6 +26,11 @@ function selectQuestion(array) {
   $("#answer-3").append("<h5>" + question.answers[2] + "</h5>")
   $("#answer-4").append("<h5>" + question.answers[3] + "</h5>")
 
+  // set timer in script
+  counter = 60;
+  // set timer on webpage
+  $("#timer-box").html("<h3>Time Remaining:&nbsp;"+counter+"</h3>") 
+
   return question.correctAnswer;
 }
 
@@ -41,10 +45,10 @@ $(document).ready(function () {
     counter--;
     if (counter <= 0) {
       clearInterval(timerCountdown);
-      $("#timer-msg").html("<h3>Time is up!</h3>")
+      $("#timer-box").html("<h3>Time is up!</h3>")
       timerExpired = true;
     } else {
-      $("#timer-msg").html("<h3>Time Remaining: "+counter+"</h3>");
+      $("#timer-box").html("<h3>Time Remaining: "+counter+"</h3>");
     }
   }, 1000);
 

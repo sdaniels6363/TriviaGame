@@ -1,0 +1,59 @@
+/* elements */
+header{
+  height: 50px;
+  width: 100%;
+}
+
+body{
+  background-image: url("../images/prism.png");
+  margin: 0;
+}
+
+footer{
+  height: 50px;
+  width: 100%;
+}
+
+/* classes */
+
+
+.container{
+  background-color: bisque;
+  height: 600px;
+  width: 960px;
+}
+
+.question{
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: cornflowerblue;
+  height: 150px;
+  width: 100%;
+}
+
+.answers{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: aliceblue;
+  height: 100px;
+  width: 100%;
+}
+
+/* ids */
+#timer-box{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  color: #ffffff;
+  background-color: #000000;
+  height: 50px;
+  margin-top: 25px;
+}

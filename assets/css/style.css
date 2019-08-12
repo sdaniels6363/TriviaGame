@@ -45,7 +45,18 @@ footer{
 }
 
 .answers:hover{
+  background-color: #fff03f;
+  color: #000000;
+}
+
+.correct-answer{
   background-color: #008000;
+  color: #ffffff; 
+}
+
+.incorrect-answer{
+  background-color: #ff0000;
+  color: #ffffff;
 }
 
 /* ids */

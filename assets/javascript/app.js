@@ -7,18 +7,22 @@ var answerSelected = false;
 var triviaQuestions = [
   // array to hold all of the questions
   {
-    "questionNumber": 1,
     "question": "What is the name of Doc Brown's dog in Back To The Future?",
     "answers": ["Einstein", "Tesla", "Edison", "Bob"],
     "correctAnswer": "answer-1",
+  },{
+    "question": "What is 2 + 2?",
+    "answers": ["2","22","4","10"],
+    "correctAnswer": "answer-3"
   }
 ];
 
-// Functions
+// Function
 function selectQuestion(array) {
   // selects a question from the bank of questions
 
-  indexNumber = 0; //maybe make random, but for testing will be static
+  // indexNumber = 0; //maybe make random, but for testing will be static
+  indexNumber = Math.floor(Math.random()*array.length);
 
   var question = array[indexNumber];
   $("#question").append("<h4>" + question.question + "</h4>")
@@ -35,7 +39,7 @@ function selectQuestion(array) {
   return question.correctAnswer;
 }
 
-function countdownTimer(count){
+function countdownTimer(count) {
   count--;
   if (count <= 0) {
     clearInterval(self);
@@ -70,7 +74,7 @@ $(document).ready(function () {
   $(".answers").on("click", function () {
     if (answerSelected) {
       // prevents the user from changing the answer.
-      console.log("Answer has already been selected.") 
+      console.log("Answer has already been selected.")
     } else {
 
       if (timerExpired) {

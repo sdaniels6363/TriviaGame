@@ -22,7 +22,7 @@ function selectQuestion(array) {
   // selects a question from the bank of questions
 
   // indexNumber = 0; //maybe make random, but for testing will be static
-  indexNumber = Math.floor(Math.random()*array.length);
+  indexNumber = Math.floor(Math.random()*array.length); // this will select a random question.
 
   var question = array[indexNumber];
   $("#question").append("<h4>" + question.question + "</h4>")
@@ -35,6 +35,9 @@ function selectQuestion(array) {
   counter = 60;
   // set timer on webpage
   $("#timer-box").html("<h3>Time Remaining:&nbsp;" + counter + "</h3>")
+
+  // remove the selected question from the bank of questions.
+  triviaQuestions.splice(indexNumber,1,);
 
   return question.correctAnswer;
 }

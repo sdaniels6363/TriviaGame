@@ -10,9 +10,9 @@ var triviaQuestions = [
     "question": "What is the name of Doc Brown's dog in Back To The Future?",
     "answers": ["Einstein", "Tesla", "Edison", "Bob"],
     "correctAnswer": "answer-1",
-  },{
+  }, {
     "question": "What is 2 + 2?",
-    "answers": ["2","22","4","10"],
+    "answers": ["2", "22", "4", "10"],
     "correctAnswer": "answer-3"
   }
 ];
@@ -22,7 +22,7 @@ function selectQuestion(array) {
   // selects a question from the bank of questions
 
   // indexNumber = 0; //maybe make random, but for testing will be static
-  indexNumber = Math.floor(Math.random()*array.length); // this will select a random question.
+  indexNumber = Math.floor(Math.random() * array.length); // this will select a random question.
 
   var question = array[indexNumber];
   $("#question").append("<h4>" + question.question + "</h4>")
@@ -37,7 +37,7 @@ function selectQuestion(array) {
   $("#timer-box").html("<h3>Time Remaining:&nbsp;" + counter + "</h3>")
 
   // remove the selected question from the bank of questions.
-  triviaQuestions.splice(indexNumber,1,);
+  triviaQuestions.splice(indexNumber, 1);
 
   return question.correctAnswer;
 }
@@ -53,7 +53,20 @@ function countdownTimer(count) {
   }
 }
 
-
+function newQuestionTimer(counter){
+  $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>")
+  var nextQuestionTimer = setInterval(function () {
+    counter--;
+    if (counter <= 0) {
+      clearInterval(timerCountdown);
+      $("#timer-box").html("<h3>Next Question!</h3>")
+      timerExpired = true;
+    } else {
+      $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>");
+    }
+  }, 1000);
+  
+}
 
 $(document).ready(function () {
 

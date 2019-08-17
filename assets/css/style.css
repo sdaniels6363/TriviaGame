@@ -63,11 +63,6 @@ footer{
 
 }
 
-.answers:hover{
-  background-color: #fff03f;
-  color: #000000;
-}
-
 .correct-answer{
   background-color: #008000;
   color: #ffffff; 
@@ -157,10 +152,7 @@ footer{
     text-align: center;
     padding: 50px;
   }
-  .answers:hover{
-    background-color: none;
-    color: none;
-  }
+
 }
 
 
@@ -211,8 +203,5 @@ footer{
     text-align: center;
     padding: 50px;
   }
-  .answers:hover{
-    background-color: none;
-    color: none;
-  }
+
 }

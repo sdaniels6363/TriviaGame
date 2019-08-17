@@ -1,7 +1,7 @@
 /* elements */
 header{
   height: 50px;
-  width: 100%;
+  width: 100vw;
   margin-bottom: 40px;
   background-color: #000000;
   border-bottom: 2px solid #ffffff;
@@ -16,7 +16,7 @@ body{
 
 footer{
   height: 50px;
-  width: 100%;
+  width: 100vw;
   position: fixed;
   bottom: 0;
   padding-top: 10px;
@@ -122,9 +122,18 @@ footer{
 /* media queries */
 
 @media screen and (max-width: 768px){
+
+  h4{
+    font-size: 20px;
+  }
+
+  h5{
+    font-size: 14px;
+  }
+
   .container{
     width: 750px;
-    height: 500px;
+    height: 600px;
   }
 
   .question, .answers, #timer-box{
@@ -137,14 +146,14 @@ footer{
   }
 
   .popup{
-    width: 800px;
-    height: 500px;
+    width: 80vw;
+    height: 60vh;
     background-color: #599b72;
     border: 2px solid #000000;
     z-index: 1;
     position: absolute;
-    left: 80px;
-    top: 50px;
+    left: 6vw;
+    top: 8vh;
     text-align: center;
     padding: 50px;
   }
@@ -156,19 +165,25 @@ footer{
 
 
 @media screen and (max-width: 480px){
+  footer{
+    display: none;
+  }
+
   .container{
     width: 90vw;
     height: 100vh;
     margin-left: 5vw;
     margin-bottom: 100px;
+    padding-bottom: 40px;
     overflow: auto;
 
   }
 
   .question, .answers, #timer-box{
     width: 80vw;
-    height: 10vh;
+    height: 6vh;
     margin-left: 5vw;
+    font-size: 1rem;
   }
 
   .question{
@@ -176,14 +191,14 @@ footer{
   }
 
   .popup{
-    width: 800px;
-    height: 500px;
+    width: 80vw;
+    height: 80vh;
     background-color: #599b72;
     border: 2px solid #000000;
     z-index: 1;
     position: absolute;
-    left: 80px;
-    top: 50px;
+    left: 5vw;
+    top: 10vh;
     text-align: center;
     padding: 50px;
   }

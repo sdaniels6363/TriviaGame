@@ -18,8 +18,7 @@ function loadGameQuestions() {
 }
 
 function resetGameTimer(counter) {
-  score = (answeredCorrect / totalQuestions) * 100;
-  $("#timer-box").html("<h4>No questions remain, you scored: " + score + "</h4>");
+  $("#timer-box").html("<h3>Resetting game in " + counter + " seconds.</h3>");
   var resetGame = setInterval(function () {
     var timerRunning = true;
     counter--;
@@ -29,9 +28,9 @@ function resetGameTimer(counter) {
       timerExpired = true; // tracks if the question timer expired
       triviaQuestions = loadGameQuestions();
       currentQuestionAnswer = selectQuestion(triviaQuestions);
-    } else if (counter <= 3) {
+    } else if (counter < 2) {
       $("#timer-box").html("<h3>Loading Questions</h3>")
-    } else if (counter < 10) {
+    } else {
       $("#timer-box").html("<h3>Resetting game in " + counter + " seconds.</h3>");
     }
   }, 1000);
@@ -66,7 +65,7 @@ function selectQuestion(array) {
     }
 
     // set timer for question
-    counter = 60;
+    counter = 30;
     var timerRunning = true;
     $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
     timerCountdown = setInterval(function () {
@@ -92,8 +91,7 @@ function selectQuestion(array) {
     return question.correctAnswer;
 
   } else {
-    // reset game
-    resetGameTimer(15);
+    // do nothing
   }
 }
 
@@ -105,20 +103,35 @@ function newQuestionTimer(counter) {
     counter--;
     if (counter <= 0) {
       clearInterval(nextQuestionTimer);
-      $("#timer-box").html("<h3>Next Question!</h3>");
-      timerExpired = true;
-      timerRunning = false;
-      currentQuestionAnswer = selectQuestion(triviaQuestions); //once timer expires call next question.
-    } else if (null === selectedAnswer && counter > 5) {
-      $("#timer-box").html("<h3>Time is up</h3>");
-    } else if (currentQuestionAnswer === selectedAnswer && counter > 5) {
+      // check to see if there are any remaining questions
+      var questionsRemaining = triviaQuestions.length
+      if (questionsRemaining === 0) {
+        $("#timer-box").html("<h3>No questions remain.</h3>")
+        endOfGamePopup();
+      } else {
+        $("#timer-box").html("<h3>Next Question!</h3>");
+        timerExpired = true;
+        timerRunning = false;
+        currentQuestionAnswer = selectQuestion(triviaQuestions); //once timer expires call next question.
+      }
+    } else if (null === selectedAnswer && counter > 3) {
+      $("#timer-box").html("<h3>Time is up!</h3>");
+    } else if (currentQuestionAnswer === selectedAnswer && counter > 3) {
       $("#timer-box").html("<h3>Correct Choice</h3>");
-    } else if (currentQuestionAnswer !== selectedAnswer && counter > 5) {
+    } else if (currentQuestionAnswer !== selectedAnswer && counter > 3) {
       $("#timer-box").html("<h3>Incorrect Choice</h3>");
     } else {
       $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>");
     }
   }, 1000);
+}
+
+function endOfGamePopup() {
+  // to be run when the user has finished the game.
+  $("#score").text("Score: " + ((answeredCorrect / totalQuestions)*100));
+  $("#correct-answers").text("Correct Answers: " + answeredCorrect);
+  $("#incorrect-answers").text("Incorrect Answers: " + (totalQuestions - answeredCorrect));
+  $("#popup").removeClass("hidden");
 }
 
 $(document).ready(function () {
@@ -160,10 +173,30 @@ $(document).ready(function () {
           $(selectedAnswerID).addClass("incorrect-answer");
         }
         // // regardless of whether the answer is right or wrong, prep for next question
-        newQuestionTimer(7); // new question will be selected here. 
+        newQuestionTimer(5); // new question will be selected here. 
       }
 
     }
 
+  });
+
+  $("#restart").on("click", function(){
+    $("#popup").addClass("hidden");
+    $("#question").empty();
+    $("#answer-1").empty();
+    $("#answer-2").empty();
+    $("#answer-3").empty();
+    $("#answer-4").empty();
+    // if the answer buttons were changed to highlight the answers, reset them.
+    for (i = 1; i < 5; i++) {
+      var answerId = "#answer-" + i;
+      if ($(answerId).hasClass("correct-answer")) {
+        $(answerId).removeClass("correct-answer");
+      } else if ($(answerId).hasClass("incorrect-answer")) {
+        $(answerId).removeClass("incorrect-answer");
+      }
+    }
+    $("#timer-box").empty();
+    resetGameTimer(5);
   });
 });

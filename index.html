@@ -21,7 +21,9 @@
 
 <body>
 
-  <header></header>
+  <header>
+    <h1>TRIVIA!!!</h1>
+  </header>
 
   <main>
 
@@ -56,7 +58,7 @@
             <div class="col-md-1">
               <!-- empty space -->
             </div>
-            <button class="col-md-4 btn btn-info answers select-answer" id="answer-1">
+            <button class="col-md-4 btn btn-info answers" id="answer-1">
               <!-- question answer 1 -->
             </button>
             <div class="col-md-1">
@@ -65,7 +67,7 @@
             <div class="col-md-1">
               <!-- empty space -->
             </div>
-            <button class="col-md-4 btn btn-info answers select-answer" id="answer-2">
+            <button class="col-md-4 btn btn-info answers" id="answer-2">
               <!-- question answer 2 -->
             </button>
             <div class="col-md-1">
@@ -78,7 +80,7 @@
             <div class="col-md-1">
               <!-- empty space -->
             </div>
-            <button class="col-md-4 btn btn-info answers select-answer" id="answer-3">
+            <button class="col-md-4 btn btn-info answers" id="answer-3">
               <!-- question answer 3 -->
             </button>
             <div class="col-md-1">
@@ -87,7 +89,7 @@
             <div class="col-md-1">
               <!-- empty space -->
             </div>
-            <button class="col-md-4 btn btn-info answers select-answer" id="answer-4">
+            <button class="col-md-4 btn btn-info answers" id="answer-4">
               <!-- question answer 4 -->
             </button>
             <div class="col-md-1">
@@ -104,14 +106,14 @@
 
       </div>
 
-      <div class="popup" data-visible="true">
+      <div class="popup hidden" id="popup">
         <div class="row">
           <div class="col-md-12">
             <h1>Game has finished</h1>
             <h2>Here are your results:</h2>
-            <h3 id="score">Score: 60</h3>
-            <h3 id="correct-answers">Correct Answers: 12</h3>
-            <h3 id="incorrect-answers">Incorrect Answers: 8</h3>
+            <h3 id="score"></h3>
+            <h3 id="correct-answers"></h3>
+            <h3 id="incorrect-answers"></h3>
             <button class="btn btn-success" id="restart">Reset Game</button>
           </div>
 
@@ -123,7 +125,9 @@
 
   </main>
 
-  <footer></footer>
+  <footer>
+    <h5>Created By: Scott Daniels</h5>
+  </footer>
 
 </body>
 

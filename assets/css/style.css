@@ -2,6 +2,11 @@
 header{
   height: 50px;
   width: 100%;
+  margin-bottom: 40px;
+  background-color: #000000;
+  border-bottom: 2px solid #ffffff;
+  text-align: center;
+  color: #ffffff;
 }
 
 body{
@@ -12,15 +17,24 @@ body{
 footer{
   height: 50px;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding-top: 10px;
+  background-color: #000000;
+  border-top: 2px solid #ffffff;
+  text-align: center;
+  color: #ffffff;
 }
 
 /* classes */
 
 
 .container{
-  background-color: bisque;
+  background-color: rgb(0, 0, 0, 0.50);
   height: 600px;
   width: 960px;
+  border: 2px solid #ffffff;
+  position: relative;
 }
 
 .question{
@@ -29,9 +43,13 @@ footer{
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  background-color: cornflowerblue;
+  background-color: rgba(94, 94, 94, 0.5);
   height: 150px;
   width: 100%;
+  color: #ffffff;
+  border-radius: 25px;
+  border: 2px solid #ffffff;
+
 }
 
 .answers{
@@ -39,9 +57,10 @@ footer{
   display: flex;
   justify-content: center;
   flex-direction: column;
-  text-align: center;
   height: 100px;
-  width: 100%;
+  width: 90%;
+  border: 2px solid #ffffff;
+
 }
 
 .answers:hover{
@@ -60,19 +79,19 @@ footer{
 }
 
 .popup{
-  width: 600px;
-  height: 400px;
+  width: 800px;
+  height: 500px;
   background-color: #599b72;
   border: 2px solid #000000;
   z-index: 1;
-  position: fixed;
-  left: 25%;
-  top: 25%;
+  position: absolute;
+  left: 80px;
+  top: 50px;
   text-align: center;
-  padding: 10px;
+  padding: 50px;
 }
 
-.popup[data-visible="false"]{
+.hidden{
   display: none;
 }
 
@@ -84,9 +103,13 @@ footer{
   text-align: center;
   width: 100%;
   color: #ffffff;
-  background-color: #000000;
+  background-color: rgba(248, 227, 227, 0.25);
+  border-radius: 25px;
   height: 50px;
   margin-top: 25px;
+  padding-top: 5px;
+  border: 1px solid #ffffff;
+
 }
 
 #restart{

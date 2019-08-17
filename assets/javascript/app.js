@@ -6,8 +6,80 @@ function loadGameQuestions() {
       "answers": ["Einstein", "Tesla", "Edison", "Bob"],
       "correctAnswer": "answer-1",
     }, {
-      "question": "What is 2 + 2?",
-      "answers": ["2", "22", "4", "10"],
+      "question": "Which actor made his debut as James Bond in the film Casino Royale in 2006?",
+      "answers": ["Sean Connery", "Pierce Brosnan", "Daniel Craig", "Timothy Dalton"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "What Nation won the 2018 FIFA World Cup?",
+      "answers": ["United States","France","Germany","Brazil"],
+      "correctAnswer": "answer-2"
+    }, {
+      "question": "Howard Wolowitz is a character from which popular U.S. TV show?",
+      "answers": ["Brady Bunch","Two and A Half Men","Sopranos","The Big Bang Theory"],
+      "correctAnswer": "answer-4"
+    }, {
+      "question": "Which American Football team won the first two Super Bowls (in 1967 and 1968)?",
+      "answers": ["Green Bay Packers","Denver Broncos","Carolina Panthers","New England Patriots"],
+      "correctAnswer": "answer-1"
+    }, {
+      "question": 'What racing driver coined the phrase: "If in doubt, flat out"?',
+      "answers": ["Dale Earnhardt","Michael Schumacher","Colin McRae","Darrell Waltrip"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "How many times have the Carolina Panthers been to the Super Bowl?",
+      "answers": ["One","Two","Five","Seven"],
+      "correctAnswer": "answer-2"
+    }, {
+      "question": "How many races did Richard Petty win?",
+      "answers": ["42","80","200","153"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "Who wrote the song a Boy Named Sue?",
+      "answers": ["Shel Silverstein","Johnny Cash","Elvis Pressley","Elton John"],
+      "correctAnswer": "answer-1"
+    }, {
+      "question": "Who was the only President to serve more than 2 terms?",
+      "answers": ["Thomas Jefferson","Theodore Roosevelt","George Washington","Franklin Roosevelt"],
+      "correctAnswer": "answer-4"
+    }, {
+      "question": "What is the longest racetrack in the world?",
+      "answers": ["Daytona International Speedway","Nürburgring","Silverstone","Monza"],
+      "correctAnswer": "answer-2"
+    }, {
+      "question": "How many World Series have the Yankees won?",
+      "answers": ["11","53","27","23"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "How many years did the Revolutionary War last?",
+      "answers": ["7","4","9","11"],
+      "correctAnswer": "answer-1"
+    }, {
+      "question": "What is the answer to life, the universe, and everything?",
+      "answers": ["42","Hell, I don't know","Chicken","3.14"],
+      "correctAnswer": "answer-1"
+    }, {
+      "question": "In what movie did Adam Sandler portray a Hockey player turned Golfer?",
+      "answers": ["Big Daddy","Billy Madison","Happy Gilmore","A Walk To Remember"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "What movie starring Nicolas Cage, was he assigned to protect a Navajo Code Talker?",
+      "answers": ["We Were Soldiers","Saving Private Ryan","Windtalkers","Black Hawk Down"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "Which English Soccer team has won the Champions League 6 times?",
+      "answers": ["Manchester United","Liverpool","Arsenal","Chelsea"],
+      "correctAnswer": "answer-2"
+    }, {
+      "question": "Which Disney movie made the most money of all time?",
+      "answers": ["Snow White and The Seven Dwarfs","Sleeping Beauty","The Lion King","Toy Story"],
+      "correctAnswer": "answer-1"
+    }, {
+      "question": "What is capital of North Carolina?",
+      "answers": ["Washington D.C.","Charlotte","Raleigh","Charleston"],
+      "correctAnswer": "answer-3"
+    }, {
+      "question": "In what movie did Tom Cruise portray a Navy fighter pilot?",
+      "answers": ["Days of Thunder","Jerry Maguire","Top Gun","Tropic Thunder"],
       "correctAnswer": "answer-3"
     }
   ];
@@ -128,7 +200,7 @@ function newQuestionTimer(counter) {
 
 function endOfGamePopup() {
   // to be run when the user has finished the game.
-  $("#score").text("Score: " + ((answeredCorrect / totalQuestions)*100));
+  $("#score").text("Score: " + ((answeredCorrect / totalQuestions) * 100));
   $("#correct-answers").text("Correct Answers: " + answeredCorrect);
   $("#incorrect-answers").text("Incorrect Answers: " + (totalQuestions - answeredCorrect));
   $("#popup").removeClass("hidden");
@@ -180,7 +252,7 @@ $(document).ready(function () {
 
   });
 
-  $("#restart").on("click", function(){
+  $("#restart").on("click", function () {
     $("#popup").addClass("hidden");
     $("#question").empty();
     $("#answer-1").empty();

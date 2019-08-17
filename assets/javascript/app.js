@@ -1,4 +1,4 @@
-function loadGameQuestions(){
+function loadGameQuestions() {
   var triviaQuestions = [
     // array to hold all of the questions
     {
@@ -11,10 +11,32 @@ function loadGameQuestions(){
       "correctAnswer": "answer-3"
     }
   ];
+  // load variables
+  answeredCorrect = 0;
+
   return triviaQuestions;
 }
 
-// Function
+function resetGameTimer(counter) {
+  score = (answeredCorrect / totalQuestions) * 100;
+  $("#timer-box").html("<h4>No questions remain, you scored: " + score + "</h4>");
+  var resetGame = setInterval(function () {
+    var timerRunning = true;
+    counter--;
+    if (counter <= 0) { // this resets the game.
+      clearInterval(resetGame);
+      timerRunning = false; // toggles the state of the timer
+      timerExpired = true; // tracks if the question timer expired
+      triviaQuestions = loadGameQuestions();
+      currentQuestionAnswer = selectQuestion(triviaQuestions);
+    } else if (counter <= 3) {
+      $("#timer-box").html("<h3>Loading Questions</h3>")
+    } else if (counter < 10) {
+      $("#timer-box").html("<h3>Resetting game in " + counter + " seconds.</h3>");
+    }
+  }, 1000);
+}
+
 function selectQuestion(array) {
   // this function selects a question from the bank of questions
 
@@ -25,7 +47,7 @@ function selectQuestion(array) {
   // indexNumber = 0; //maybe make random, but for testing will be static
   indexNumber = Math.floor(Math.random() * array.length); // this will select a random question.
 
-  var question = array[indexNumber];
+  question = array[indexNumber];
   if (question) {
     $("#question").html("<h4>" + question.question + "</h4>")
     $("#answer-1").html("<h5>" + question.answers[0] + "</h5>")
@@ -45,57 +67,58 @@ function selectQuestion(array) {
 
     // set timer for question
     counter = 60;
-    // set timer on webpage
-    $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>")
+    var timerRunning = true;
+    $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
+    timerCountdown = setInterval(function () {
+      counter--;
+      if (counter <= 0) {
+        clearInterval(timerCountdown);
+        $("#timer-box").html("<h3>Time is up!</h3>");
+        timerRunning = false;
+        timerExpired = true;
+        selectedAnswer = null;
+        answerId = "#" + currentQuestionAnswer;
+        $(answerId).addClass("correct-answer"); // if question is unanswered, the correct answer will be highlighted.
+        newQuestionTimer(7);
+      } else {
+        $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
+      }
+    }, 1000);
+
 
     // remove the selected question from the bank of questions.
     triviaQuestions.splice(indexNumber, 1);
 
     return question.correctAnswer;
+
   } else {
-    score = (answeredCorrect / totalQuestions) * 100;
-    $("#timer-box").html("<h4>No questions remain, you scored: " + score + "</h4>");
     // reset game
+    resetGameTimer(15);
   }
 }
 
-function displayResult(counter, selectedAnswer, currentQuestionAnswer) {
-  var resultTimer = setInterval(function () {
-    counter--;
-    if (counter <= 0) {
-      clearInterval(resultTimer);
-      $("#timer-box").empty();
-    } else {
-      if (currentQuestionAnswer === selectedAnswer) {
-        $("#timer-box").html("<h3>Correct Choice</h3>");
-      } else {
-        $("#timer-box").html("<h3>Incorrect Choice</h3>");
-      }
-    }
-  })
-}
-
-
 function newQuestionTimer(counter) {
 
-  $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>")
+  var timerRunning = true;
   var nextQuestionTimer = setInterval(function () {
+    $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>")
     counter--;
     if (counter <= 0) {
       clearInterval(nextQuestionTimer);
-      $("#timer-box").html("<h3>Next Question!</h3>")
-      timerExpired = false; // set to false for next question.
-      currentQuestionAnswer = selectQuestion(triviaQuestions);
-      answerSelected = false; // resetting 
+      $("#timer-box").html("<h3>Next Question!</h3>");
+      timerExpired = true;
+      timerRunning = false;
+      currentQuestionAnswer = selectQuestion(triviaQuestions); //once timer expires call next question.
+    } else if (null === selectedAnswer && counter > 5) {
+      $("#timer-box").html("<h3>Time is up</h3>");
+    } else if (currentQuestionAnswer === selectedAnswer && counter > 5) {
+      $("#timer-box").html("<h3>Correct Choice</h3>");
+    } else if (currentQuestionAnswer !== selectedAnswer && counter > 5) {
+      $("#timer-box").html("<h3>Incorrect Choice</h3>");
     } else {
       $("#timer-box").html("<h3>Next question in " + counter + " seconds!</h3>");
     }
   }, 1000);
-
-
-
-
-  currentQuestionAnswer = selectQuestion(triviaQuestions); //once timer expires call next question.
 }
 
 $(document).ready(function () {
@@ -105,24 +128,10 @@ $(document).ready(function () {
 
   // score tracker
   totalQuestions = triviaQuestions.length;
-  answeredCorrect = 0;
-
+  timerRunning = true;
 
   // once the page is loaded a question is selected.
   currentQuestionAnswer = selectQuestion(triviaQuestions);
-
-  var timerCountdown = setInterval(function () {
-    counter--;
-    if (counter <= 0) {
-      clearInterval(timerCountdown);
-      $("#timer-box").html("<h3>Time is up!</h3>")
-      timerExpired = true;
-      displayResult(3);
-      newQuestionTimer(7);
-    } else {
-      $("#timer-box").html("<h3>Time Remaining: " + counter + "</h3>");
-    }
-  }, 1000);
 
   $(".answers").on("click", function () {
     if (answerSelected) {
@@ -133,45 +142,28 @@ $(document).ready(function () {
       if (timerExpired) {
         alert("Time is up, cannot select an answer.")
       } else {
-        var selectedAnswer = this.id;
-        var selectedAnswerID = "#" + selectedAnswer;
+        selectedAnswer = this.id;
+        selectedAnswerID = "#" + selectedAnswer;
         answerSelected = true;
         clearInterval(timerCountdown); // stop the countdown timer
 
         if (currentQuestionAnswer === selectedAnswer) {
           // if the user selects the correct answer do the following
           $(selectedAnswerID).addClass("correct-answer");
-          // $("#timer-box").html("Correct!");
           // add timer for 3 seconds
-          displayResult(3, selectedAnswer, currentQuestionAnswer);
-          newQuestionTimer(7); // new question will be selected here.
-          answeredCorrect = answeredCorrect+1;
-  
+          answeredCorrect = answeredCorrect + 1;
+
         } else {
           // if the user is incorrect do the following.
-          var correctAnswerId = "#" + currentQuestionAnswer;
+          correctAnswerId = "#" + currentQuestionAnswer;
           $(correctAnswerId).addClass("correct-answer");
           $(selectedAnswerID).addClass("incorrect-answer");
-          // $("#timer-box").html("Incorrect!  The correct answer is in Green.");
-          // add timer for 3 seconds
-          displayResult(3, selectedAnswer, currentQuestionAnswer);
-          newQuestionTimer(7); // new question will be selected here.
-  
         }
         // // regardless of whether the answer is right or wrong, prep for next question
-        // displayResult(3, selectedAnswer, currentQuestionAnswer);
-        // newQuestionTimer(7); // new question will be selected here.
+        newQuestionTimer(7); // new question will be selected here. 
       }
 
     }
 
   });
-
-
-
-
-
-
-
-
 });

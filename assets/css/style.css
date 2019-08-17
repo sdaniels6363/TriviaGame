@@ -59,6 +59,23 @@ footer{
   color: #ffffff;
 }
 
+.popup{
+  width: 600px;
+  height: 400px;
+  background-color: #599b72;
+  border: 2px solid #000000;
+  z-index: 1;
+  position: fixed;
+  left: 25%;
+  top: 25%;
+  text-align: center;
+  padding: 10px;
+}
+
+.popup[data-visible="false"]{
+  display: none;
+}
+
 /* ids */
 #timer-box{
   display: flex;
@@ -70,4 +87,11 @@ footer{
   background-color: #000000;
   height: 50px;
   margin-top: 25px;
+}
+
+#restart{
+  margin-top: 40px;
+  height: 50px;
+  width: 200px;
+  border: 2px solid #000000;
 }
